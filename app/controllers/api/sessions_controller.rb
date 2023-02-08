@@ -15,10 +15,11 @@ class Api::SessionsController < ApplicationController
     user = User.find_by(email: params[:email])
     if user&.authenticate(params[:password])
       token = jwt_encode({ user_id: user.id })
-      cookies.signed[:jwt] = { value: token, httponly: true }
+      cookies.signed[:jwt] = { value: token, httponly: true, domain: 'localhost', same_site: :none, secure: true }
       render json: {
         user_id: user.id,
-        username: user.username
+        username: user.username,
+        email: user.email
       }
     else
       render json: { status: 'incorrect email or password', code: 422 }

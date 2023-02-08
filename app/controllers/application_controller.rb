@@ -6,7 +6,7 @@ class ApplicationController < ActionController::API
     @current_user = current_user
     return true if @current_user
 
-    render json: { status: 'unauthorized', code: 401 }
+    render json: { status: 'unauthorized', code: 401 }, status: :unauthorized
   end
 
   def current_user
