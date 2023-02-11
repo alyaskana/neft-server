@@ -7,7 +7,8 @@ class Api::UsersController < ApplicationController
 
   # GET /api/users/{id}
   def show
-    render json: User.find_by(params[:id])
+    @user = User.find_by(params[:id])
+    render :show
   end
 
   def create
@@ -38,7 +39,8 @@ class Api::UsersController < ApplicationController
   end
 
   def current
-    render json: @current_user
+    @user = @current_user
+    render :show
   end
 
   private
