@@ -10,7 +10,19 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_03_06_145609) do
+ActiveRecord::Schema[7.0].define(version: 2023_03_06_233200) do
+  create_table "cells", force: :cascade do |t|
+    t.integer "plot_id", null: false
+    t.integer "plant_id"
+    t.string "land_type"
+    t.boolean "is_taken", default: false
+    t.datetime "planting_time"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["plant_id"], name: "index_cells_on_plant_id"
+    t.index ["plot_id"], name: "index_cells_on_plot_id"
+  end
+
   create_table "fish", force: :cascade do |t|
     t.integer "level"
     t.integer "experience"
@@ -31,20 +43,15 @@ ActiveRecord::Schema[7.0].define(version: 2023_03_06_145609) do
 
   create_table "plots", force: :cascade do |t|
     t.integer "user_id", null: false
-    t.integer "plant_id"
-    t.string "type"
-    t.boolean "is_taken"
-    t.datetime "planting_time"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["plant_id"], name: "index_plots_on_plant_id"
     t.index ["user_id"], name: "index_plots_on_user_id"
   end
 
   create_table "resources", force: :cascade do |t|
     t.integer "user_id", null: false
     t.string "name"
-    t.string "type"
+    t.string "material_type"
     t.string "image"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -70,8 +77,9 @@ ActiveRecord::Schema[7.0].define(version: 2023_03_06_145609) do
     t.datetime "updated_at", null: false
   end
 
+  add_foreign_key "cells", "plants"
+  add_foreign_key "cells", "plots"
   add_foreign_key "fish", "users"
-  add_foreign_key "plots", "plants"
   add_foreign_key "plots", "users"
   add_foreign_key "resources", "users"
   add_foreign_key "seeds", "users"

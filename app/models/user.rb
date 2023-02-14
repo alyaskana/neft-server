@@ -8,4 +8,7 @@ class User < ApplicationRecord
   validates :password, presence: true, length: { minimum: 8 }, on: :create
 
   has_many :fishes, dependent: :destroy
+  has_many :plots, dependent: :destroy
+  has_many :seeds, dependent: :destroy
+  has_many :resources, dependent: :destroy
 end
