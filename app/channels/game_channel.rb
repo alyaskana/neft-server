@@ -6,7 +6,15 @@ class GameChannel < ApplicationCable::Channel
 
   def receive(data)
     p 'received message:', data
-    GameChannel.broadcast_to(current_user, data)
+    case data['type']
+    when 'getStash'
+      message = {
+        type: 'stashUpdate',
+        data: Stashes::GetStash.call(current_user)
+      }
+      GameChannel.broadcast_to(current_user, message)
+    end
+    # GameChannel.broadcast_to(current_user, data)
   end
 
   def unsubscribed

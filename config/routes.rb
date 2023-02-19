@@ -12,5 +12,11 @@ Rails.application.routes.draw do
         get :current
       end
     end
+
+    resources :games, only: [] do
+      collection do
+        get :state
+      end
+    end
   end
 end
