@@ -18,3 +18,16 @@ end
 
 create_plant('Водоросль', Rails.root.join('db', 'seeds_images', 'plants', 'seaweed.png'), 120, 60)
 create_plant('Коралл', Rails.root.join('db', 'seeds_images', 'plants', 'coral.png'), 200, 100)
+
+# Create seeds ========================================
+
+def create_seed(user, name, file_path, price)
+  seed = Seed.find_or_create_by!(user: user, name: name, price: price)
+
+  io = File.open(file_path)
+  file_name = File.basename(file_path)
+  seed.image.attach(io: io, filename: file_name)
+end
+
+create_seed(User.first, 'Водоросль', Rails.root.join('db', 'seeds_images', 'seeds', 'seaweed.png'), 100)
+create_seed(User.first, 'Коралл', Rails.root.join('db', 'seeds_images', 'seeds', 'coral.png'), 200)
