@@ -17,3 +17,7 @@ end
 json.resources do
   json.array! @resources, partial: 'resource', as: :resource
 end
+
+json.wallet do
+  json.partial! partial: 'wallet', locals: { wallet: @wallet }
+end

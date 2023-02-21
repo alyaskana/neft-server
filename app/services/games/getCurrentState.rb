@@ -6,13 +6,15 @@ module Games
       fishes = Fish.where(user: user)
       plants = Plant.all
       plots = Plot.where(user: user)
+      wallet = user.wallet
 
       {
         plants: plants,
         resources: resources,
         seeds: seeds,
         fishes: fishes,
-        plots: plots
+        plots: plots,
+        wallet: wallet
       }
     end
   end

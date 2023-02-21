@@ -11,4 +11,5 @@ class User < ApplicationRecord
   has_many :plots, dependent: :destroy
   has_many :seeds, dependent: :destroy
   has_many :resources, dependent: :destroy
+  has_one :wallet, dependent: :destroy
 end
