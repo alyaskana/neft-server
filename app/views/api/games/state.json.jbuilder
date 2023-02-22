@@ -21,3 +21,11 @@ end
 json.wallet do
   json.partial! partial: 'wallet', locals: { wallet: @wallet }
 end
+
+json.seed_stock do
+  json.array! @user_seeds, partial: 'seed_stock', as: :seed_stock
+end
+
+json.crops do
+  json.array! @crops, partial: 'crop', as: :crop
+end

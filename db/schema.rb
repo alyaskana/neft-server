@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_03_13_215836) do
+ActiveRecord::Schema[7.0].define(version: 2023_03_13_224349) do
   create_table "active_storage_attachments", force: :cascade do |t|
     t.string "name", null: false
     t.string "record_type", null: false
@@ -51,6 +51,16 @@ ActiveRecord::Schema[7.0].define(version: 2023_03_13_215836) do
     t.index ["plot_id"], name: "index_cells_on_plot_id"
   end
 
+  create_table "crops", force: :cascade do |t|
+    t.integer "user_id", null: false
+    t.integer "plant_id", null: false
+    t.integer "count"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["plant_id"], name: "index_crops_on_plant_id"
+    t.index ["user_id"], name: "index_crops_on_user_id"
+  end
+
   create_table "fish", force: :cascade do |t|
     t.integer "level"
     t.integer "experience"
@@ -86,12 +96,20 @@ ActiveRecord::Schema[7.0].define(version: 2023_03_13_215836) do
   end
 
   create_table "seeds", force: :cascade do |t|
-    t.integer "user_id", null: false
     t.string "name"
     t.integer "price"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["user_id"], name: "index_seeds_on_user_id"
+  end
+
+  create_table "user_seeds", force: :cascade do |t|
+    t.integer "user_id", null: false
+    t.integer "seed_id", null: false
+    t.integer "count"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["seed_id"], name: "index_user_seeds_on_seed_id"
+    t.index ["user_id"], name: "index_user_seeds_on_user_id"
   end
 
   create_table "users", force: :cascade do |t|
@@ -115,9 +133,12 @@ ActiveRecord::Schema[7.0].define(version: 2023_03_13_215836) do
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
   add_foreign_key "cells", "plants"
   add_foreign_key "cells", "plots"
+  add_foreign_key "crops", "plants"
+  add_foreign_key "crops", "users"
   add_foreign_key "fish", "users"
   add_foreign_key "plots", "users"
   add_foreign_key "resources", "users"
-  add_foreign_key "seeds", "users"
+  add_foreign_key "user_seeds", "seeds"
+  add_foreign_key "user_seeds", "users"
   add_foreign_key "wallets", "users"
 end

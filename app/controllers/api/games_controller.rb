@@ -9,6 +9,8 @@ class Api::GamesController < ApplicationController
     @fishes = data[:fishes]
     @plots = data[:plots]
     @wallet = data[:wallet]
+    @user_seeds = data[:user_seeds]
+    @crops = data[:user_crops]
     render :state
   end
 end
