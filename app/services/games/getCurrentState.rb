@@ -5,9 +5,9 @@ module Games
       seeds = Seed.all
       plants = Plant.all
       fishes = Fish.where(user: user)
-      plots = Plot.where(user: user)
+      plots = Plot.where(user: user).includes(cells: [:seed])
       wallet = user.wallet
-      user_seeds = user.seeds
+      seed_stocks = user.seed_stocks
       user_crops = user.crops
 
       {
@@ -17,7 +17,7 @@ module Games
         fishes: fishes,
         plots: plots,
         wallet: wallet,
-        user_seeds: user_seeds,
+        seed_stocks: seed_stocks,
         user_crops: user_crops
       }
     end

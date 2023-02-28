@@ -1,5 +1,5 @@
 json.extract! crop, :id, :count
 
 json.plant do
-  json.partial! partial: 'plant', locals: { plant: crop.plant }
+  json.partial! partial: '/api/games/plant', locals: { plant: crop.plant }
 end

@@ -1,0 +1,5 @@
+class RemoveGrowingTimeToPlants < ActiveRecord::Migration[7.0]
+  def change
+    remove_column :plants, :growing_time, :integer
+  end
+end

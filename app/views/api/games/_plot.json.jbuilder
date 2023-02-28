@@ -1,6 +1,4 @@
 json.extract! plot, :id
 json.cells do
-  json.array! plot.cells do |cell|
-    json.extract! cell, :id, :land_type, :is_taken, :planting_time
-  end
+  json.array! plot.cells, partial: '/api/games/cell', as: :cell
 end
