@@ -71,6 +71,7 @@ GEM
       msgpack (~> 1.2)
     builder (3.2.4)
     concurrent-ruby (1.2.2)
+    connection_pool (2.3.0)
     crass (1.0.6)
     date (3.3.3)
     debug (1.7.1)
@@ -152,10 +153,18 @@ GEM
       thor (~> 1.0)
       zeitwerk (~> 2.5)
     rake (13.0.6)
+    redis (4.8.1)
+    redis-client (0.14.0)
+      connection_pool
     reline (0.3.2)
       io-console (~> 0.5)
     ruby-vips (2.1.4)
       ffi (~> 1.12)
+    sidekiq (7.0.7)
+      concurrent-ruby (< 2)
+      connection_pool (>= 2.3.0)
+      rack (>= 2.2.4)
+      redis-client (>= 0.11.0)
     sqlite3 (1.6.1-arm64-darwin)
     thor (1.2.1)
     timeout (0.3.2)
@@ -179,6 +188,8 @@ DEPENDENCIES
   puma (~> 5.0)
   rack-cors
   rails (~> 7.0.4, >= 7.0.4.2)
+  redis (~> 4.0)
+  sidekiq (~> 7.0)
   sqlite3 (~> 1.4)
   tzinfo-data
 
