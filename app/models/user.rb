@@ -10,7 +10,7 @@ class User < ApplicationRecord
   has_many :fishes, dependent: :destroy
   has_many :plots, dependent: :destroy
   has_many :resources, dependent: :destroy
-  has_many :seed_stocks, dependent: :destroy
+  has_many :seed_stocks, class_name: 'SeedStock', foreign_key: 'user_id', dependent: :destroy
   has_many :crops, dependent: :destroy
   has_one :wallet, dependent: :destroy
 end

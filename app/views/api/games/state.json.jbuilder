@@ -10,10 +10,6 @@ json.plots do
   json.array! @plots, partial: '/api/games/plot', as: :plot
 end
 
-json.seeds do
-  json.array! @seeds, partial: '/api/games/seed', as: :seed
-end
-
 json.resources do
   json.array! @resources, partial: '/api/games/resource', as: :resource
 end

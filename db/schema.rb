@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_03_19_225742) do
+ActiveRecord::Schema[7.0].define(version: 2023_03_20_193441) do
   create_table "active_storage_attachments", force: :cascade do |t|
     t.string "name", null: false
     t.string "record_type", null: false
@@ -72,7 +72,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_03_19_225742) do
 
   create_table "growing_seeds", force: :cascade do |t|
     t.integer "cell_id", null: false
-    t.integer "seed_id", null: false
+    t.integer "plant_id", null: false
     t.integer "growing_time"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -80,7 +80,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_03_19_225742) do
     t.datetime "final_grow_time"
     t.string "stage", default: "growing"
     t.index ["cell_id"], name: "index_growing_seeds_on_cell_id"
-    t.index ["seed_id"], name: "index_growing_seeds_on_seed_id"
+    t.index ["plant_id"], name: "index_growing_seeds_on_plant_id"
     t.index ["user_id"], name: "index_growing_seeds_on_user_id"
   end
 
@@ -89,6 +89,8 @@ ActiveRecord::Schema[7.0].define(version: 2023_03_19_225742) do
     t.integer "price"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "seed_price", null: false
+    t.integer "growing_time", null: false
   end
 
   create_table "plots", force: :cascade do |t|
@@ -110,22 +112,12 @@ ActiveRecord::Schema[7.0].define(version: 2023_03_19_225742) do
 
   create_table "seed_stocks", force: :cascade do |t|
     t.integer "user_id", null: false
-    t.integer "seed_id", null: false
+    t.integer "plant_id", null: false
     t.integer "count"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["seed_id"], name: "index_seed_stocks_on_seed_id"
+    t.index ["plant_id"], name: "index_seed_stocks_on_plant_id"
     t.index ["user_id"], name: "index_seed_stocks_on_user_id"
-  end
-
-  create_table "seeds", force: :cascade do |t|
-    t.string "name"
-    t.integer "price"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.integer "plant_id", null: false
-    t.integer "growing_time", null: false
-    t.index ["plant_id"], name: "index_seeds_on_plant_id"
   end
 
   create_table "users", force: :cascade do |t|
@@ -153,12 +145,11 @@ ActiveRecord::Schema[7.0].define(version: 2023_03_19_225742) do
   add_foreign_key "crops", "users"
   add_foreign_key "fish", "users"
   add_foreign_key "growing_seeds", "cells"
-  add_foreign_key "growing_seeds", "seeds"
+  add_foreign_key "growing_seeds", "plants"
   add_foreign_key "growing_seeds", "users"
   add_foreign_key "plots", "users"
   add_foreign_key "resources", "users"
-  add_foreign_key "seed_stocks", "seeds"
+  add_foreign_key "seed_stocks", "plants"
   add_foreign_key "seed_stocks", "users"
-  add_foreign_key "seeds", "plants"
   add_foreign_key "wallets", "users"
 end

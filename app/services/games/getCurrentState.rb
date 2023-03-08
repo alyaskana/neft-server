@@ -2,10 +2,9 @@ module Games
   class GetCurrentState < ApplicationService
     def call(user)
       resources = Resource.where(user: user)
-      seeds = Seed.all
       plants = Plant.all
       fishes = Fish.where(user: user)
-      plots = Plot.where(user: user).includes(cells: [:seed])
+      plots = Plot.where(user: user).includes(cells: [:plant])
       wallet = user.wallet
       seed_stocks = user.seed_stocks
       user_crops = user.crops
@@ -13,7 +12,6 @@ module Games
       {
         plants: plants,
         resources: resources,
-        seeds: seeds,
         fishes: fishes,
         plots: plots,
         wallet: wallet,
