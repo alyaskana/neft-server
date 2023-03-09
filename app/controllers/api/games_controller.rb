@@ -12,4 +12,11 @@ class Api::GamesController < ApplicationController
     @crops = data[:user_crops]
     render :state
   end
+
+  def buy_seed
+    Games::BuySeed.call(current_user, params[:plant_id])
+    @seed_stocks = current_user.seed_stocks
+    @wallet = current_user.wallet
+    render :buy_seed
+  end
 end
