@@ -20,6 +20,7 @@ Rails.application.routes.draw do
       collection do
         get :state
         post :buy_seed
+        post :new_plot
       end
     end
   end

@@ -19,4 +19,10 @@ class Api::GamesController < ApplicationController
     @wallet = current_user.wallet
     render :buy_seed
   end
+
+  def new_plot
+    Plots::Create.call(current_user)
+    @plots = current_user.plots
+    render :new_plot
+  end
 end
