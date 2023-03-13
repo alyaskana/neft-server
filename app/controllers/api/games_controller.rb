@@ -33,4 +33,11 @@ class Api::GamesController < ApplicationController
     @seed_stocks = current_user.seed_stocks
     render :plant_seed
   end
+
+  def harvesting
+    Games::Harvesting.call(current_user, params['growing_seed_id'])
+    @plots = current_user.plots
+    @crops = current_user.crops
+    render :harvesting
+  end
 end
