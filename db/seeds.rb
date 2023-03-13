@@ -6,6 +6,10 @@ if user.nil?
   Wallet.create!(user: user, dsc: 1000)
 end
 
+fish = user.fishes.create!(level: 1, experience: 0)
+fish_image = Rails.root.join('db', 'seeds_images', 'fishes', 'violet.png')
+fish.image.attach(io: File.open(fish_image), filename: File.basename(fish_image))
+
 def create_plant(name:, image:, price:, seed_image:, seed_price:, growing_time:, growing_image:)
   plant = Plant.find_by(name: name)
 
