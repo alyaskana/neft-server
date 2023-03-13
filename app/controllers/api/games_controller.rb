@@ -25,4 +25,12 @@ class Api::GamesController < ApplicationController
     @plots = current_user.plots
     render :new_plot
   end
+
+  def plant_seed
+    Games::PlantSeed.call(params['cell_id'], params['seed_stock_id'])
+    Plots::Create.call(current_user)
+    @plots = current_user.plots
+    @seed_stocks = current_user.seed_stocks
+    render :plant_seed
+  end
 end
