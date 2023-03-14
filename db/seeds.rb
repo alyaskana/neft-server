@@ -2,7 +2,7 @@ email = 'ialina240200@gmail.com'
 user = User.find_by(email: email)
 if user.nil?
   user = User.create!(email: email, password: '12345678', password_confirmation: '12345678', username: 'alyaskana',
-                      name: 'alyaskana')
+                      name: 'alyaskana', is_active: true)
   Wallet.create!(user: user, dsc: 1000)
 end
 
@@ -31,7 +31,8 @@ plant_seaweed = create_plant(
   seed_image: Rails.root.join('db', 'seeds_images', 'plants', 'seaweed_seed.png'),
   seed_price: 100,
   growing_time: 60,
-  growing_image: Rails.root.join('db', 'seeds_images', 'plants', 'seaweed_growing.png')
+  growing_image: Rails.root.join('db', 'seeds_images', 'plants', 'seaweed_growing.png'),
+  experience: 100
 )
 
 plant_coral = create_plant(
@@ -41,7 +42,8 @@ plant_coral = create_plant(
   seed_image: Rails.root.join('db', 'seeds_images', 'plants', 'coral_seed.png'),
   seed_price: 150,
   growing_time: 100,
-  growing_image: Rails.root.join('db', 'seeds_images', 'plants', 'coral_growing.png')
+  growing_image: Rails.root.join('db', 'seeds_images', 'plants', 'coral_growing.png'),
+  experience: 150
 )
 
 SeedStock.create!(user: user, plant: plant_seaweed, count: 10)

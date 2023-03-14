@@ -28,7 +28,6 @@ class Api::GamesController < ApplicationController
 
   def plant_seed
     Games::PlantSeed.call(params['cell_id'], params['seed_stock_id'])
-    Plots::Create.call(current_user)
     @plots = current_user.plots
     @seed_stocks = current_user.seed_stocks
     render :plant_seed
@@ -39,5 +38,12 @@ class Api::GamesController < ApplicationController
     @plots = current_user.plots
     @crops = current_user.crops
     render :harvesting
+  end
+
+  def eat_crop
+    Games::EatCrop.call(current_user, params['crop_id'], params['fish_id'])
+    @crops = current_user.crops
+    @fishes = current_user.fishes
+    render :eat_crop
   end
 end

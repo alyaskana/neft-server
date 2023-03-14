@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_03_20_193441) do
+ActiveRecord::Schema[7.0].define(version: 2023_03_26_210229) do
   create_table "active_storage_attachments", force: :cascade do |t|
     t.string "name", null: false
     t.string "record_type", null: false
@@ -67,6 +67,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_03_20_193441) do
     t.integer "user_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.boolean "is_active", default: false
     t.index ["user_id"], name: "index_fish_on_user_id"
   end
 
@@ -91,6 +92,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_03_20_193441) do
     t.datetime "updated_at", null: false
     t.integer "seed_price", null: false
     t.integer "growing_time", null: false
+    t.integer "experience"
   end
 
   create_table "plots", force: :cascade do |t|

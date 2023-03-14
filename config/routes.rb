@@ -23,6 +23,7 @@ Rails.application.routes.draw do
         post :new_plot
         post :plant_seed
         post :harvesting
+        post :eat_crop
       end
     end
   end
