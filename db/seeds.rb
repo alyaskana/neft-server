@@ -92,7 +92,7 @@ plant_5 = create_plant(
 )
 
 plant_6 = create_plant(
-  name: 'Акадийская зеленая водоросль',
+  name: 'Акадийская водоросль',
   description: "Является эндемиком Новой Шотландии и редким видом, находящимся под угрозой исчезновения",
   image: Rails.root.join('db', 'seeds_images', 'plants', 'acadian_plant.png'),
   price: 300,
