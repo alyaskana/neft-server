@@ -46,4 +46,11 @@ class Api::GamesController < ApplicationController
     @fishes = current_user.fishes
     render :eat_crop
   end
+
+  def sell_crop
+    Games::SellCrop.call(current_user, params['crop_id'])
+    @crops = current_user.crops
+    @wallet = current_user.wallet
+    render :sell_crop
+  end
 end
