@@ -26,6 +26,13 @@ class Api::GamesController < ApplicationController
     render :buy_seed
   end
 
+  def buy_instrument
+    Games::BuyInstrument.call(current_user, params[:instrument_id])
+    @instrument_stocks = current_user.instrument_stocks
+    @wallet = current_user.wallet
+    render :buy_instrument
+  end
+
   def new_plot
     Plots::Create.call(current_user)
     @plots = current_user.plots
