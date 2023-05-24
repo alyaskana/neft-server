@@ -7,8 +7,14 @@ class Api::GamesController < ApplicationController
     @resources = data[:resources]
     @fishes = data[:fishes]
     @plots = data[:plots]
+    @instruments = data[:instruments]
+    @recipes = data[:recipes]
+    @minerals = data[:minerals]
     @wallet = data[:wallet]
     @seed_stocks = data[:seed_stocks]
+    @recipe_stocks = data[:recipe_stocks]
+    @mineral_stocks = data[:mineral_stocks]
+    @instrument_stocks = data[:instrument_stocks]
     @crops = data[:user_crops]
     render :state
   end

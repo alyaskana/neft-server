@@ -10,12 +10,12 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_04_02_205120) do
+ActiveRecord::Schema[7.0].define(version: 2023_05_24_132255) do
   create_table "active_storage_attachments", force: :cascade do |t|
     t.string "name", null: false
     t.string "record_type", null: false
-    t.bigint "record_id", null: false
-    t.bigint "blob_id", null: false
+    t.integer "record_id", null: false
+    t.integer "blob_id", null: false
     t.datetime "created_at", null: false
     t.index ["blob_id"], name: "index_active_storage_attachments_on_blob_id"
     t.index ["record_type", "record_id", "name", "blob_id"], name: "index_active_storage_attachments_uniqueness", unique: true
@@ -34,9 +34,22 @@ ActiveRecord::Schema[7.0].define(version: 2023_04_02_205120) do
   end
 
   create_table "active_storage_variant_records", force: :cascade do |t|
-    t.bigint "blob_id", null: false
+    t.integer "blob_id", null: false
     t.string "variation_digest", null: false
     t.index ["blob_id", "variation_digest"], name: "index_active_storage_variant_records_uniqueness", unique: true
+  end
+
+  create_table "cell_minerals", force: :cascade do |t|
+    t.integer "cell_id", null: false
+    t.integer "mineral_id", null: false
+    t.integer "user_id", null: false
+    t.string "stage", default: "recovering"
+    t.datetime "final_recover_time"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["cell_id"], name: "index_cell_minerals_on_cell_id"
+    t.index ["mineral_id"], name: "index_cell_minerals_on_mineral_id"
+    t.index ["user_id"], name: "index_cell_minerals_on_user_id"
   end
 
   create_table "cells", force: :cascade do |t|
@@ -85,6 +98,42 @@ ActiveRecord::Schema[7.0].define(version: 2023_04_02_205120) do
     t.index ["user_id"], name: "index_growing_seeds_on_user_id"
   end
 
+  create_table "instrument_stocks", force: :cascade do |t|
+    t.integer "user_id", null: false
+    t.integer "instrument_id", null: false
+    t.integer "count"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["instrument_id"], name: "index_instrument_stocks_on_instrument_id"
+    t.index ["user_id"], name: "index_instrument_stocks_on_user_id"
+  end
+
+  create_table "instruments", force: :cascade do |t|
+    t.string "name"
+    t.integer "price"
+    t.text "description"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "mineral_stocks", force: :cascade do |t|
+    t.integer "user_id", null: false
+    t.integer "mineral_id", null: false
+    t.integer "count"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["mineral_id"], name: "index_mineral_stocks_on_mineral_id"
+    t.index ["user_id"], name: "index_mineral_stocks_on_user_id"
+  end
+
+  create_table "minerals", force: :cascade do |t|
+    t.string "name"
+    t.integer "recovery_time"
+    t.integer "price"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "plants", force: :cascade do |t|
     t.string "name"
     t.integer "price"
@@ -102,6 +151,34 @@ ActiveRecord::Schema[7.0].define(version: 2023_04_02_205120) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["user_id"], name: "index_plots_on_user_id"
+  end
+
+  create_table "recipe_plants", force: :cascade do |t|
+    t.integer "recipe_id", null: false
+    t.integer "plant_id", null: false
+    t.integer "count"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["plant_id"], name: "index_recipe_plants_on_plant_id"
+    t.index ["recipe_id"], name: "index_recipe_plants_on_recipe_id"
+  end
+
+  create_table "recipe_stocks", force: :cascade do |t|
+    t.integer "user_id", null: false
+    t.integer "recipe_id", null: false
+    t.integer "count"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["recipe_id"], name: "index_recipe_stocks_on_recipe_id"
+    t.index ["user_id"], name: "index_recipe_stocks_on_user_id"
+  end
+
+  create_table "recipes", force: :cascade do |t|
+    t.string "name"
+    t.text "description"
+    t.integer "experience"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "resources", force: :cascade do |t|
@@ -143,6 +220,9 @@ ActiveRecord::Schema[7.0].define(version: 2023_04_02_205120) do
 
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
+  add_foreign_key "cell_minerals", "cells"
+  add_foreign_key "cell_minerals", "minerals"
+  add_foreign_key "cell_minerals", "users"
   add_foreign_key "cells", "plants"
   add_foreign_key "cells", "plots"
   add_foreign_key "crops", "plants"
@@ -151,7 +231,15 @@ ActiveRecord::Schema[7.0].define(version: 2023_04_02_205120) do
   add_foreign_key "growing_seeds", "cells"
   add_foreign_key "growing_seeds", "plants"
   add_foreign_key "growing_seeds", "users"
+  add_foreign_key "instrument_stocks", "instruments"
+  add_foreign_key "instrument_stocks", "users"
+  add_foreign_key "mineral_stocks", "minerals"
+  add_foreign_key "mineral_stocks", "users"
   add_foreign_key "plots", "users"
+  add_foreign_key "recipe_plants", "plants"
+  add_foreign_key "recipe_plants", "recipes"
+  add_foreign_key "recipe_stocks", "recipes"
+  add_foreign_key "recipe_stocks", "users"
   add_foreign_key "resources", "users"
   add_foreign_key "seed_stocks", "plants"
   add_foreign_key "seed_stocks", "users"
