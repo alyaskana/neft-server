@@ -74,4 +74,11 @@ class Api::GamesController < ApplicationController
     @wallet = current_user.wallet
     render :sell_crop
   end
+
+  def sell_mineral
+    Games::SellMineral.call(current_user, params['mineral_stock_id'])
+    @mineral_stocks = current_user.mineral_stocks
+    @wallet = current_user.wallet
+    render :sell_mineral
+  end
 end
