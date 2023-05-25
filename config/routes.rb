@@ -24,6 +24,7 @@ Rails.application.routes.draw do
         post :new_plot
         post :plant_seed
         post :harvesting
+        post :collect_mineral
         post :eat_crop
         post :sell_crop
       end

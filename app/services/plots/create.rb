@@ -23,7 +23,10 @@ module Plots
                       else
                         :grass
                       end
-          Cell.create!(plot: plot, land_type: Cell.land_types[call_type])
+          cell = Cell.create!(plot: plot, land_type: Cell.land_types[call_type])
+          if call_type == :stone
+            CellMineral.create!(cell: cell, mineral: Mineral.first, user: user, stage: "ready")
+          end
         end
       end
     end

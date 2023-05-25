@@ -53,6 +53,14 @@ class Api::GamesController < ApplicationController
     render :harvesting
   end
 
+  def collect_mineral
+    Games::CollectMineral.call(current_user, params['cell_mineral_id'], params['instrument_stock_id'])
+    @plots = current_user.plots
+    @mineral_stocks = current_user.mineral_stocks
+    @instrument_stocks = current_user.instrument_stocks
+    render :collect_mineral
+  end
+
   def eat_crop
     Games::EatCrop.call(current_user, params['crop_id'], params['fish_id'])
     @crops = current_user.crops

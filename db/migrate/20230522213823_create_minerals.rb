@@ -4,6 +4,7 @@ class CreateMinerals < ActiveRecord::Migration[7.0]
       t.string :name
       t.integer :recovery_time
       t.integer :price
+      t.text :description
 
       t.timestamps
     end

@@ -1,5 +1,2 @@
-json.extract! mineral, :id, :price, :name, :recovery_time
-p "+++++++"
-p mineral
-p mineral.image.attached?
+json.extract! mineral, :id, :price, :name, :description, :recovery_time
 json.image rails_blob_url(mineral.image)

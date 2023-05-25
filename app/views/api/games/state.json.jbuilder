@@ -38,6 +38,10 @@ json.instrument_stocks do
   json.array! @instrument_stocks, partial: '/api/games/instrument_stock', as: :instrument_stock
 end
 
+json.mineral_stocks do
+  json.array! @mineral_stocks, partial: '/api/games/mineral_stock', as: :mineral_stock
+end
+
 json.recipe_stocks do
   json.array! @recipe_stocks, partial: '/api/games/recipe_stock', as: :recipe_stock
 end

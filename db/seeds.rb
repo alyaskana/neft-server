@@ -45,13 +45,14 @@ def create_instrument(name:, image:, price:, description:)
   instrument
 end
 
-def create_mineral(name:, image:, price:, recovery_time:)
+def create_mineral(name:, image:, description:, price:, recovery_time:)
   mineral = Mineral.find_by(name: name)
 
   if mineral.nil?
     mineral = Mineral.create!(
       name: name,
       price: price,
+      description: description,
       recovery_time: recovery_time,
     )
 
@@ -168,6 +169,7 @@ plant_7 = create_plant(
 
 material_1 = create_mineral(
   name: 'Камень',
+  description: 'Полезный ресурс, который можно найти на участке.',
   image: Rails.root.join('db', 'seeds_images', 'minerals', 'stone.png'),
   price: 100,
   recovery_time: 10800
@@ -175,6 +177,7 @@ material_1 = create_mineral(
 
 material_2 = create_mineral(
   name: 'Звезда',
+  description: 'Полезный ресурс, который можно найти на участке.',
   image: Rails.root.join('db', 'seeds_images', 'minerals', 'star.png'),
   price: 120,
   recovery_time: 14400
@@ -182,6 +185,7 @@ material_2 = create_mineral(
 
 material_3 = create_mineral(
   name: 'Красная водоросль',
+  description: 'Полезный ресурс, который можно найти на участке.',
   image: Rails.root.join('db', 'seeds_images', 'minerals', 'red_seaweed.png'),
   price: 150,
   recovery_time: 21600
