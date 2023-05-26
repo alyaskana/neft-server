@@ -42,8 +42,12 @@ json.mineral_stocks do
   json.array! @mineral_stocks, partial: '/api/games/mineral_stock', as: :mineral_stock
 end
 
-json.recipe_stocks do
-  json.array! @recipe_stocks, partial: '/api/games/recipe_stock', as: :recipe_stock
+json.user_recipes do
+  json.array! @user_recipes, partial: '/api/games/user_recipe', as: :user_recipe
+end
+
+json.dishes do
+  json.array! @dishes, partial: '/api/games/dish', as: :dish
 end
 
 json.crops do

@@ -26,7 +26,8 @@ Rails.application.routes.draw do
         post :harvesting
         post :collect_mineral
         post :eat_crop
-        post :eat_recipe
+        post :eat_dish
+        post :cook_recipe
         post :sell_crop
         post :sell_mineral
       end

@@ -10,7 +10,7 @@ fish = user.fishes.create!(level: 1, experience: 0, is_active: true)
 fish_image = Rails.root.join('db', 'seeds_images', 'fishes', 'violet.png')
 fish.image.attach(io: File.open(fish_image), filename: File.basename(fish_image))
 
-def create_recipe(name:, description:, image:,  experience:, recipe_plants: )
+def create_recipe(name:, description:, image:,  experience:, recipe_plants:, cooking_time:)
   recipe = Recipe.find_by(name: name)
 
   if recipe.nil?
@@ -18,6 +18,7 @@ def create_recipe(name:, description:, image:,  experience:, recipe_plants: )
       name: name,
       description: description,
       experience: experience,
+      cooking_time: cooking_time
     )
 
     recipe.image.attach(io: File.open(image), filename: File.basename(image))
@@ -203,6 +204,7 @@ recipe_1 = create_recipe(
   description: "Смесь зеленых водорослей с водой, которая дает еще больше питательных веществ и минералов.",
   image: Rails.root.join('db', 'seeds_images', 'recipes', 'green_soup.png'),
   experience: 50,
+  cooking_time: 300,
   recipe_plants: [
     {
       plant: plant_1,
@@ -225,7 +227,8 @@ MineralStock.create!(user: user, mineral: material_3, count: 10)
 
 InstrumentStock.create!(user: user, instrument: instrument, count: 10)
 
-RecipeStock.create!(user: user, recipe: recipe_1, count: 10)
+UserRecipe.create!(user: user, recipe: recipe_1)
+Dish.create!(user: user, recipe: recipe_1, count: 3, stage: :ready)
 
 Plots::Create.call(user)
 Plots::Create.call(user)

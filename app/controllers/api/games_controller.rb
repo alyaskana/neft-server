@@ -12,10 +12,11 @@ class Api::GamesController < ApplicationController
     @minerals = data[:minerals]
     @wallet = data[:wallet]
     @seed_stocks = data[:seed_stocks]
-    @recipe_stocks = data[:recipe_stocks]
+    @user_recipes = data[:user_recipes]
     @mineral_stocks = data[:mineral_stocks]
     @instrument_stocks = data[:instrument_stocks]
     @crops = data[:user_crops]
+    @dishes = data[:dishes]
     render :state
   end
 
@@ -68,11 +69,18 @@ class Api::GamesController < ApplicationController
     render :eat_crop
   end
 
-  def eat_recipe
-    Games::EatRecipe.call(current_user, params['recipe_stock_id'], params['fish_id'])
-    @recipe_stocks = current_user.recipe_stocks
+  def eat_dish
+    Games::EatDish.call(current_user, params['dish_id'], params['dish_id'])
+    @dishes = current_user.dishes
     @fishes = current_user.fishes
-    render :eat_recipe
+    render :eat_dish
+  end
+
+  def cook_recipe
+    Games::CookRecipe.call(current_user, params['user_recipe_id'])
+    @user_recipes = current_user.user_recipes
+    @crops = current_user.crops
+    render :cook_recipe
   end
 
   def sell_crop

@@ -10,12 +10,12 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_05_24_132255) do
+ActiveRecord::Schema[7.0].define(version: 2023_05_26_130413) do
   create_table "active_storage_attachments", force: :cascade do |t|
     t.string "name", null: false
     t.string "record_type", null: false
-    t.bigint "record_id", null: false
-    t.bigint "blob_id", null: false
+    t.integer "record_id", null: false
+    t.integer "blob_id", null: false
     t.datetime "created_at", null: false
     t.index ["blob_id"], name: "index_active_storage_attachments_on_blob_id"
     t.index ["record_type", "record_id", "name", "blob_id"], name: "index_active_storage_attachments_uniqueness", unique: true
@@ -34,7 +34,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_05_24_132255) do
   end
 
   create_table "active_storage_variant_records", force: :cascade do |t|
-    t.bigint "blob_id", null: false
+    t.integer "blob_id", null: false
     t.string "variation_digest", null: false
     t.index ["blob_id", "variation_digest"], name: "index_active_storage_variant_records_uniqueness", unique: true
   end
@@ -72,6 +72,17 @@ ActiveRecord::Schema[7.0].define(version: 2023_05_24_132255) do
     t.datetime "updated_at", null: false
     t.index ["plant_id"], name: "index_crops_on_plant_id"
     t.index ["user_id"], name: "index_crops_on_user_id"
+  end
+
+  create_table "dishes", force: :cascade do |t|
+    t.integer "user_id", null: false
+    t.integer "recipe_id", null: false
+    t.integer "count"
+    t.string "stage", default: "ready"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["recipe_id"], name: "index_dishes_on_recipe_id"
+    t.index ["user_id"], name: "index_dishes_on_user_id"
   end
 
   create_table "fish", force: :cascade do |t|
@@ -164,22 +175,13 @@ ActiveRecord::Schema[7.0].define(version: 2023_05_24_132255) do
     t.index ["recipe_id"], name: "index_recipe_plants_on_recipe_id"
   end
 
-  create_table "recipe_stocks", force: :cascade do |t|
-    t.integer "user_id", null: false
-    t.integer "recipe_id", null: false
-    t.integer "count"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["recipe_id"], name: "index_recipe_stocks_on_recipe_id"
-    t.index ["user_id"], name: "index_recipe_stocks_on_user_id"
-  end
-
   create_table "recipes", force: :cascade do |t|
     t.string "name"
     t.text "description"
     t.integer "experience"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "cooking_time"
   end
 
   create_table "resources", force: :cascade do |t|
@@ -200,6 +202,17 @@ ActiveRecord::Schema[7.0].define(version: 2023_05_24_132255) do
     t.datetime "updated_at", null: false
     t.index ["plant_id"], name: "index_seed_stocks_on_plant_id"
     t.index ["user_id"], name: "index_seed_stocks_on_user_id"
+  end
+
+  create_table "user_recipes", force: :cascade do |t|
+    t.integer "user_id", null: false
+    t.integer "recipe_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.datetime "final_cook_time"
+    t.string "stage", default: "ready"
+    t.index ["recipe_id"], name: "index_user_recipes_on_recipe_id"
+    t.index ["user_id"], name: "index_user_recipes_on_user_id"
   end
 
   create_table "users", force: :cascade do |t|
@@ -228,6 +241,8 @@ ActiveRecord::Schema[7.0].define(version: 2023_05_24_132255) do
   add_foreign_key "cells", "plots"
   add_foreign_key "crops", "plants"
   add_foreign_key "crops", "users"
+  add_foreign_key "dishes", "recipes"
+  add_foreign_key "dishes", "users"
   add_foreign_key "fish", "users"
   add_foreign_key "growing_seeds", "cells"
   add_foreign_key "growing_seeds", "plants"
@@ -239,10 +254,10 @@ ActiveRecord::Schema[7.0].define(version: 2023_05_24_132255) do
   add_foreign_key "plots", "users"
   add_foreign_key "recipe_plants", "plants"
   add_foreign_key "recipe_plants", "recipes"
-  add_foreign_key "recipe_stocks", "recipes"
-  add_foreign_key "recipe_stocks", "users"
   add_foreign_key "resources", "users"
   add_foreign_key "seed_stocks", "plants"
   add_foreign_key "seed_stocks", "users"
+  add_foreign_key "user_recipes", "recipes"
+  add_foreign_key "user_recipes", "users"
   add_foreign_key "wallets", "users"
 end
