@@ -35,7 +35,9 @@ class Api::GamesController < ApplicationController
   end
 
   def new_plot
-    Plots::Create.call(current_user)
+    Plots::Buy.call(current_user)
+    @mineral_stocks = current_user.mineral_stocks
+    @wallet = current_user.wallet
     @plots = current_user.plots
     render :new_plot
   end
