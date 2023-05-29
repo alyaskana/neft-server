@@ -7,9 +7,9 @@ module Plots
       mineral_stock = user.mineral_stocks[0]
 
       if plots.count == 3
-        requiredMoney = 1500
-        requiredLevel = 3
-        requiredMineral = 10
+        requiredMoney = 50
+        requiredLevel = 1
+        requiredMineral = 1
       elsif plots.count == 4
         requiredMoney = 2000
         requiredLevel = 4
