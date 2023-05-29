@@ -7,9 +7,11 @@ module Games
         crop = crops.find_by(plant: recipe_plant.plant)
         crop.update!(count: crop.count - recipe_plant.count)
       end
-      user_recipe.update!(stage: 'cooking', final_cook_time: Time.now + user_recipe.recipe.cooking_time)
+      final_cook_time = Time.now + user_recipe.recipe.cooking_time
+      call_job_time = Time.now + user_recipe.recipe.cooking_time / 20 - 2
+      user_recipe.update!(stage: 'cooking', final_cook_time: final_cook_time)
       dish = Dish.find_by(user: user, recipe: user_recipe.recipe)
-      CookRecipeJob.set(wait_until: user_recipe.final_cook_time).perform_later(dish, user_recipe)
+      CookRecipeJob.set(wait_until: call_job_time).perform_later(dish, user_recipe)
     end
   end
 end

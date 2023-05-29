@@ -173,7 +173,7 @@ material_1 = create_mineral(
   description: 'Полезный ресурс, который можно найти на участке.',
   image: Rails.root.join('db', 'seeds_images', 'minerals', 'star.png'),
   price: 120,
-  recovery_time: 14_400
+  recovery_time: 3_600
 )
 
 material_2 = create_mineral(

@@ -35,7 +35,7 @@ module Plots
     end
 
     def stone_position(garden_start_row, garden_start_col, garden_beds_rows, garden_beds_cols)
-      stone_row = rand(0..(SIZE - 1))
+      stone_row = rand(1..(SIZE - 1))
       stone_col = rand(0..(SIZE - 1))
       is_garden_bed = garden_bed?(stone_row, stone_col, garden_start_row, garden_start_col, garden_beds_rows,
                                   garden_beds_cols)

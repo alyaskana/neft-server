@@ -8,8 +8,11 @@ module Games
       instrument_stock = InstrumentStock.find_by(user: user, id: instrument_stock_id)
       instrument_stock.update!(count: instrument_stock.count - 1)
 
-      cell_mineral.update!(stage: :recovering, final_recover_time: Time.now + cell_mineral.mineral.recovery_time)
-      RecoverMineralJob.set(wait_until: cell_mineral.final_recover_time).perform_later(cell_mineral)
+      final_recover_time = Time.now + cell_mineral.mineral.recovery_time
+      call_job_time = Time.now + cell_mineral.mineral.recovery_time / 250 - 2
+
+      cell_mineral.update!(stage: :recovering, final_recover_time: final_recover_time)
+      RecoverMineralJob.set(wait_until: call_job_time).perform_later(cell_mineral)
     end
   end
 end
