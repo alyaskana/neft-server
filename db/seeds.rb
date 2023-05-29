@@ -54,7 +54,7 @@ def create_mineral(name:, image:, description:, price:, recovery_time:)
       name: name,
       price: price,
       description: description,
-      recovery_time: recovery_time,
+      recovery_time: recovery_time
     )
 
     mineral.image.attach(io: File.open(image), filename: File.basename(image))
@@ -151,7 +151,7 @@ plant_6 = create_plant(
   price: 110,
   seed_image: Rails.root.join('db', 'seeds_images', 'plants', 'acadian_seed.png'),
   seed_price: 80,
-  growing_time: 14400,
+  growing_time: 14_400,
   experience: 90,
   rarity: 4
 )
@@ -163,25 +163,25 @@ plant_7 = create_plant(
   price: 160,
   seed_image: Rails.root.join('db', 'seeds_images', 'plants', 'asparagopsis_seed.png'),
   seed_price: 120,
-  growing_time: 28800,
+  growing_time: 28_800,
   experience: 150,
   rarity: 4
 )
 
 material_1 = create_mineral(
-  name: 'Камень',
-  description: 'Полезный ресурс, который можно найти на участке.',
-  image: Rails.root.join('db', 'seeds_images', 'minerals', 'stone.png'),
-  price: 100,
-  recovery_time: 10800
-)
-
-material_2 = create_mineral(
   name: 'Звезда',
   description: 'Полезный ресурс, который можно найти на участке.',
   image: Rails.root.join('db', 'seeds_images', 'minerals', 'star.png'),
   price: 120,
-  recovery_time: 14400
+  recovery_time: 14_400
+)
+
+material_2 = create_mineral(
+  name: 'Камень',
+  description: 'Полезный ресурс, который можно найти на участке.',
+  image: Rails.root.join('db', 'seeds_images', 'minerals', 'stone.png'),
+  price: 100,
+  recovery_time: 10_800
 )
 
 material_3 = create_mineral(
@@ -189,19 +189,19 @@ material_3 = create_mineral(
   description: 'Полезный ресурс, который можно найти на участке.',
   image: Rails.root.join('db', 'seeds_images', 'minerals', 'red_seaweed.png'),
   price: 150,
-  recovery_time: 21600
+  recovery_time: 21_600
 )
 
 instrument = create_instrument(
   name: 'Коралловый нож',
-  description: "Нужен для добычи ресурсов на вашем участке.",
+  description: 'Нужен для добычи ресурсов на вашем участке.',
   image: Rails.root.join('db', 'seeds_images', 'instruments', 'knife.png'),
-  price: 50,
+  price: 50
 )
 
 recipe_1 = create_recipe(
   name: 'Зеленый суп',
-  description: "Смесь зеленых водорослей с водой, которая дает еще больше питательных веществ и минералов.",
+  description: 'Смесь зеленых водорослей с водой, которая дает еще больше питательных веществ и минералов.',
   image: Rails.root.join('db', 'seeds_images', 'recipes', 'green_soup.png'),
   experience: 50,
   cooking_time: 300,
@@ -233,3 +233,28 @@ Dish.create!(user: user, recipe: recipe_1, count: 3, stage: :ready)
 Plots::Create.call(user)
 Plots::Create.call(user)
 Plots::Create.call(user)
+
+# Empty user
+
+empty_user_email = 'empty_user@gmail.com'
+empty_user = User.find_by(email: empty_user_email)
+if empty_user.nil?
+  empty_user = User.create!(email: empty_user_email, password: '12345678', password_confirmation: '12345678', username: 'empty_user',
+                            name: 'empty_user')
+  Wallet.create!(user: empty_user, dsc: 0)
+end
+
+fish = empty_user.fishes.create!(level: 1, experience: 0, is_active: true)
+fish_image = Rails.root.join('db', 'seeds_images', 'fishes', 'violet.png')
+fish.image.attach(io: File.open(fish_image), filename: File.basename(fish_image))
+
+Plots::Create.call(empty_user)
+Plots::Create.call(empty_user)
+Plots::Create.call(empty_user)
+
+Plot.where(user: empty_user).first.cells.where(land_type: :garden_bed).first(4).each do |cell|
+  GrowingSeed.create!(user: empty_user, cell: cell, plant: plant_1, growing_time: plant_1.growing_time,
+                      final_grow_time: Time.now, stage: :complete)
+end
+
+UserRecipe.create!(user: empty_user, recipe: recipe_1)

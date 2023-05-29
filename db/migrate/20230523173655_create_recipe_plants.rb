@@ -3,7 +3,7 @@ class CreateRecipePlants < ActiveRecord::Migration[7.0]
     create_table :recipe_plants do |t|
       t.references :recipe, null: false, foreign_key: true
       t.references :plant, null: false, foreign_key: true
-      t.integer :count
+      t.integer :count, default: 0
 
       t.timestamps
     end

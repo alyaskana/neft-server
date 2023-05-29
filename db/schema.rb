@@ -14,8 +14,8 @@ ActiveRecord::Schema[7.0].define(version: 2023_05_26_130413) do
   create_table "active_storage_attachments", force: :cascade do |t|
     t.string "name", null: false
     t.string "record_type", null: false
-    t.integer "record_id", null: false
-    t.integer "blob_id", null: false
+    t.bigint "record_id", null: false
+    t.bigint "blob_id", null: false
     t.datetime "created_at", null: false
     t.index ["blob_id"], name: "index_active_storage_attachments_on_blob_id"
     t.index ["record_type", "record_id", "name", "blob_id"], name: "index_active_storage_attachments_uniqueness", unique: true
@@ -34,7 +34,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_05_26_130413) do
   end
 
   create_table "active_storage_variant_records", force: :cascade do |t|
-    t.integer "blob_id", null: false
+    t.bigint "blob_id", null: false
     t.string "variation_digest", null: false
     t.index ["blob_id", "variation_digest"], name: "index_active_storage_variant_records_uniqueness", unique: true
   end
@@ -67,7 +67,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_05_26_130413) do
   create_table "crops", force: :cascade do |t|
     t.integer "user_id", null: false
     t.integer "plant_id", null: false
-    t.integer "count"
+    t.integer "count", default: 0
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["plant_id"], name: "index_crops_on_plant_id"
@@ -77,7 +77,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_05_26_130413) do
   create_table "dishes", force: :cascade do |t|
     t.integer "user_id", null: false
     t.integer "recipe_id", null: false
-    t.integer "count"
+    t.integer "count", default: 0
     t.string "stage", default: "ready"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -112,7 +112,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_05_26_130413) do
   create_table "instrument_stocks", force: :cascade do |t|
     t.integer "user_id", null: false
     t.integer "instrument_id", null: false
-    t.integer "count"
+    t.integer "count", default: 0
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["instrument_id"], name: "index_instrument_stocks_on_instrument_id"
@@ -130,7 +130,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_05_26_130413) do
   create_table "mineral_stocks", force: :cascade do |t|
     t.integer "user_id", null: false
     t.integer "mineral_id", null: false
-    t.integer "count"
+    t.integer "count", default: 0
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["mineral_id"], name: "index_mineral_stocks_on_mineral_id"
@@ -168,7 +168,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_05_26_130413) do
   create_table "recipe_plants", force: :cascade do |t|
     t.integer "recipe_id", null: false
     t.integer "plant_id", null: false
-    t.integer "count"
+    t.integer "count", default: 0
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["plant_id"], name: "index_recipe_plants_on_plant_id"
@@ -197,7 +197,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_05_26_130413) do
   create_table "seed_stocks", force: :cascade do |t|
     t.integer "user_id", null: false
     t.integer "plant_id", null: false
-    t.integer "count"
+    t.integer "count", default: 0
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["plant_id"], name: "index_seed_stocks_on_plant_id"
