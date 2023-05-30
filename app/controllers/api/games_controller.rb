@@ -98,4 +98,10 @@ class Api::GamesController < ApplicationController
     @wallet = current_user.wallet
     render :sell_mineral
   end
+
+  def update_skills
+    Games::UpdateSkills.call(current_user, params['skills'])
+    @fishes = current_user.fishes
+    render :update_skills
+  end
 end

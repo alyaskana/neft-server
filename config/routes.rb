@@ -30,6 +30,7 @@ Rails.application.routes.draw do
         post :cook_recipe
         post :sell_crop
         post :sell_mineral
+        post :update_skills
       end
     end
   end
