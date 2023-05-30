@@ -31,6 +31,7 @@ Rails.application.routes.draw do
         post :sell_crop
         post :sell_mineral
         post :update_skills
+        post :explore
       end
     end
   end

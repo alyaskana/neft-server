@@ -42,6 +42,14 @@ class Api::GamesController < ApplicationController
     render :new_plot
   end
 
+  def explore
+    Games::Explore.call(current_user)
+    @fishes = current_user.fishes
+    @mineral_stocks = current_user.mineral_stocks
+    @wallet = current_user.wallet
+    render :explore
+  end
+
   def plant_seed
     Games::PlantSeed.call(params['cell_id'], params['seed_stock_id'])
     @plots = current_user.plots
