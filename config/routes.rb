@@ -32,6 +32,7 @@ Rails.application.routes.draw do
         post :sell_mineral
         post :update_skills
         post :explore
+        post :collect_explore_results
       end
     end
   end

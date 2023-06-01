@@ -50,6 +50,14 @@ class Api::GamesController < ApplicationController
     render :explore
   end
 
+  def collect_explore_results
+    Games::CollectExploreResults.call(current_user)
+    @user_recipes = current_user.user_recipes
+    @seed_stocks = current_user.seed_stocks
+    @fishes = current_user.fishes
+    render :collect_explore_results
+  end
+
   def plant_seed
     Games::PlantSeed.call(params['cell_id'], params['seed_stock_id'])
     @plots = current_user.plots
