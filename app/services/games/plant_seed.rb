@@ -17,6 +17,15 @@ module Games
                                          final_grow_time: Time.now + plant.growing_time)
       seed_stock.update!(count: seed_stock.count - 1)
       GrowSeedJob.set(wait_until: grownig_seed.final_grow_time).perform_later(grownig_seed)
+
+      GameChannel.broadcast_to(user, {
+                                 type: 'newNotification',
+                                 data: {
+                                   icon: 'seed',
+                                   message: '- 1',
+                                   createdAt: Time.now
+                                 }
+                               })
     end
   end
 end

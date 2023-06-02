@@ -7,6 +7,23 @@ module Games
       end
       crop.update!(count: crop.count + 1)
       growing_seed.destroy!
+
+      GameChannel.broadcast_to(user, {
+                                 type: 'newNotification',
+                                 data: {
+                                   icon: 'plant',
+                                   message: '+ 1',
+                                   createdAt: Time.now
+                                 }
+                               })
+      GameChannel.broadcast_to(user, {
+                                 type: 'newNotification',
+                                 data: {
+                                   icon: 'mineral',
+                                   message: "+ #{requiredMineral}",
+                                   createdAt: Time.now
+                                 }
+                               })
     end
   end
 end

@@ -8,6 +8,22 @@ module Games
         seed_stock.count = 0
       end
       seed_stock.update!(count: seed_stock.count + 5)
+      GameChannel.broadcast_to(user, {
+                                 type: 'newNotification',
+                                 data: {
+                                   icon: 'recipe',
+                                   message: '+ 1',
+                                   createdAt: Time.now
+                                 }
+                               })
+      GameChannel.broadcast_to(user, {
+                                 type: 'newNotification',
+                                 data: {
+                                   icon: 'seed',
+                                   message: '+ 5',
+                                   createdAt: Time.now
+                                 }
+                               })
     end
   end
 end

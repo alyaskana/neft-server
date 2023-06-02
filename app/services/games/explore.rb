@@ -18,6 +18,24 @@ module Games
 
         fish.update!(final_explore_time: final_explore_time, explore_stage: 'exploring')
         ExploreJob.set(wait_until: call_job_time).perform_later(fish)
+
+        GameChannel.broadcast_to(user, {
+                                   type: 'newNotification',
+                                   data: {
+                                     icon: 'money',
+                                     message: "- #{requiredMoney}",
+                                     createdAt: Time.now
+                                   }
+                                 })
+        GameChannel.broadcast_to(user, {
+                                   type: 'newNotification',
+                                   data: {
+                                     icon: 'mineral',
+                                     message: "+ #{requiredMineral}",
+                                     createdAt: Time.now
+                                   }
+                                 })
+
       end
     end
   end

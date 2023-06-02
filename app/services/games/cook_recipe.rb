@@ -6,6 +6,14 @@ module Games
       user_recipe.recipe.recipe_plants.each do |recipe_plant|
         crop = crops.find_by(plant: recipe_plant.plant)
         crop.update!(count: crop.count - recipe_plant.count)
+        GameChannel.broadcast_to(user, {
+                                   type: 'newNotification',
+                                   data: {
+                                     icon: 'plant',
+                                     message: "- #{recipe_plant.count}",
+                                     createdAt: Time.now
+                                   }
+                                 })
       end
       final_cook_time = Time.now + user_recipe.recipe.cooking_time
       call_job_time = Time.now + user_recipe.recipe.cooking_time / 20 - 2

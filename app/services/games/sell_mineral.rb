@@ -6,6 +6,24 @@ module Games
         mineral_stock.update!(count: mineral_stock.count - 1)
         wallet = user.wallet
         wallet.update!(dsc: wallet.dsc + mineral_stock.mineral.price)
+
+        GameChannel.broadcast_to(user, {
+                                   type: 'newNotification',
+                                   data: {
+                                     icon: 'mineral',
+                                     message: '- 1',
+                                     createdAt: Time.now
+                                   }
+                                 })
+
+        GameChannel.broadcast_to(user, {
+                                   type: 'newNotification',
+                                   data: {
+                                     icon: 'money',
+                                     message: "+ #{mineral_stock.mineral.price}",
+                                     createdAt: Time.now
+                                   }
+                                 })
       end
     end
   end

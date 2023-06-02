@@ -13,6 +13,22 @@ module Games
 
       cell_mineral.update!(stage: :recovering, final_recover_time: final_recover_time)
       RecoverMineralJob.set(wait_until: call_job_time).perform_later(cell_mineral)
+      GameChannel.broadcast_to(user, {
+                                 type: 'newNotification',
+                                 data: {
+                                   icon: 'instrument',
+                                   message: '- 1',
+                                   createdAt: Time.now
+                                 }
+                               })
+      GameChannel.broadcast_to(user, {
+                                 type: 'newNotification',
+                                 data: {
+                                   icon: 'mineral',
+                                   message: '+ 1',
+                                   createdAt: Time.now
+                                 }
+                               })
     end
   end
 end

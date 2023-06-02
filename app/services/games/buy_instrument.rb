@@ -9,6 +9,22 @@ module Games
       if (wallet.dsc - instrument.price) >= 0
         instrument_stock.update!(count: instrument_stock.count + 1)
         wallet.update!(dsc: wallet.dsc - instrument.price)
+        GameChannel.broadcast_to(user, {
+                                   type: 'newNotification',
+                                   data: {
+                                     icon: 'instrument',
+                                     message: '+ 1',
+                                     createdAt: Time.now
+                                   }
+                                 })
+        GameChannel.broadcast_to(user, {
+                                   type: 'newNotification',
+                                   data: {
+                                     icon: 'money',
+                                     message: "- #{instrument.price}",
+                                     createdAt: Time.now
+                                   }
+                                 })
       end
     end
   end
