@@ -3,10 +3,10 @@ user = User.find_by(email: email)
 if user.nil?
   user = User.create!(email: email, password: '12345678', password_confirmation: '12345678', username: 'alyaskana',
                       name: 'alyaskana')
-  Wallet.create!(user: user, dsc: 1000)
+  Wallet.create!(user: user, dsc: 100_000)
 end
 
-fish = user.fishes.create!(level: 1, experience: 0, is_active: true)
+fish = user.fishes.create!(level: 10, experience: 10_000, is_active: true)
 fish_image = Rails.root.join('db', 'seeds_images', 'fishes', 'violet.png')
 fish.image.attach(io: File.open(fish_image), filename: File.basename(fish_image))
 
@@ -213,19 +213,19 @@ recipe_1 = create_recipe(
   ]
 )
 
-SeedStock.create!(user: user, plant: plant_1, count: 10)
-SeedStock.create!(user: user, plant: plant_2, count: 10)
-SeedStock.create!(user: user, plant: plant_3, count: 10)
-SeedStock.create!(user: user, plant: plant_4, count: 10)
-SeedStock.create!(user: user, plant: plant_5, count: 10)
-SeedStock.create!(user: user, plant: plant_6, count: 10)
-SeedStock.create!(user: user, plant: plant_7, count: 10)
+SeedStock.create!(user: user, plant: plant_1, count: 1000)
+SeedStock.create!(user: user, plant: plant_2, count: 1000)
+SeedStock.create!(user: user, plant: plant_3, count: 1000)
+SeedStock.create!(user: user, plant: plant_4, count: 1000)
+SeedStock.create!(user: user, plant: plant_5, count: 1000)
+SeedStock.create!(user: user, plant: plant_6, count: 1000)
+SeedStock.create!(user: user, plant: plant_7, count: 1000)
 
-MineralStock.create!(user: user, mineral: material_1, count: 10)
-MineralStock.create!(user: user, mineral: material_2, count: 10)
-MineralStock.create!(user: user, mineral: material_3, count: 10)
+MineralStock.create!(user: user, mineral: material_1, count: 1000)
+MineralStock.create!(user: user, mineral: material_2, count: 1000)
+MineralStock.create!(user: user, mineral: material_3, count: 1000)
 
-InstrumentStock.create!(user: user, instrument: instrument, count: 10)
+InstrumentStock.create!(user: user, instrument: instrument, count: 1000)
 
 UserRecipe.create!(user: user, recipe: recipe_1)
 Dish.create!(user: user, recipe: recipe_1, count: 3, stage: :ready)
