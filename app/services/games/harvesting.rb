@@ -16,14 +16,6 @@ module Games
                                    createdAt: Time.now
                                  }
                                })
-      GameChannel.broadcast_to(user, {
-                                 type: 'newNotification',
-                                 data: {
-                                   icon: 'mineral',
-                                   message: "+ #{requiredMineral}",
-                                   createdAt: Time.now
-                                 }
-                               })
     end
   end
 end
