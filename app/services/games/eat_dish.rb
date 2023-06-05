@@ -20,7 +20,7 @@ module Games
                                    type: 'newNotification',
                                    data: {
                                      icon: 'experience',
-                                     message: "+ #{xp} XP",
+                                     message: "+ #{dish.recipe.experience} XP",
                                      createdAt: Time.now
                                    }
                                  })

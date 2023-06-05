@@ -11,7 +11,7 @@ module Games
                                  type: 'newNotification',
                                  data: {
                                    icon: 'experience',
-                                   message: "+ #{xp} XP",
+                                   message: "+ #{crop.plant.experience} XP",
                                    createdAt: Time.now
                                  }
                                })

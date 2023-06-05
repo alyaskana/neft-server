@@ -4,7 +4,7 @@ module Plots
 
     def call(user)
       plot = Plot.create!(user: user)
-      _garden_beds_count, garden_beds_cols, garden_beds_rows = [[4, 2, 2], [4, 2, 2], [6, 3, 2], [6, 2, 3],
+      _garden_beds_count, garden_beds_cols, garden_beds_rows = [[6, 3, 2], [6, 2, 3],
                                                                 [9, 3, 3], [9, 3, 3], [12, 3, 4], [12, 4, 3]].sample
       garden_start_col = rand(0..(SIZE - garden_beds_cols))
       garden_start_row = rand(1..(SIZE - garden_beds_cols))

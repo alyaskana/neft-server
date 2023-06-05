@@ -98,7 +98,7 @@ plant_1 = create_plant(
 
 plant_2 = create_plant(
   name: 'Хлорелла',
-  description: 'Зеленая водоросль, которая используется в качестве дополнения к пище благодаря высокому содержанию белка',
+  description: 'Используется в качестве дополнения к пище благодаря высокому содержанию белка',
   image: Rails.root.join('db', 'seeds_images', 'plants', 'chlorella_plant.png'),
   seed_image: Rails.root.join('db', 'seeds_images', 'plants', 'chlorella_seed.png'),
   growing_time: 300,
@@ -110,7 +110,7 @@ plant_2 = create_plant(
 
 plant_3 = create_plant(
   name: 'Глаукус морской',
-  description: 'Голубая водоросль, которая является видом морской гидры',
+  description: 'Голубая водоросль, которая является видом морской гидры, вымирающий вид',
   image: Rails.root.join('db', 'seeds_images', 'plants', 'sea_glaucus_plant.png'),
   price: 40,
   seed_image: Rails.root.join('db', 'seeds_images', 'plants', 'sea_glaucus_seed.png'),
@@ -196,7 +196,7 @@ instrument = create_instrument(
   name: 'Коралловый нож',
   description: 'Нужен для добычи ресурсов на вашем участке.',
   image: Rails.root.join('db', 'seeds_images', 'instruments', 'knife.png'),
-  price: 50
+  price: 30
 )
 
 recipe_1 = create_recipe(
@@ -236,7 +236,7 @@ Plots::Create.call(user)
 
 # Empty user
 
-empty_user_email = 'empty_user@gmail.com'
+empty_user_email = 'alyaskana@gmail.com'
 empty_user = User.find_by(email: empty_user_email)
 if empty_user.nil?
   empty_user = User.create!(email: empty_user_email, password: '12345678', password_confirmation: '12345678', username: 'empty_user',

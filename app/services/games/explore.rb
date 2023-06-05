@@ -5,7 +5,7 @@ module Games
       fish = user.fishes.find_by(is_active: true)
       mineral_stock = user.mineral_stocks[0]
 
-      requiredMoney = 1500
+      requiredMoney = 500
       requiredLevel = 3
       requiredMineral = 10
 
@@ -31,7 +31,7 @@ module Games
                                    type: 'newNotification',
                                    data: {
                                      icon: 'mineral',
-                                     message: "+ #{requiredMineral}",
+                                     message: "- #{requiredMineral}",
                                      createdAt: Time.now
                                    }
                                  })
